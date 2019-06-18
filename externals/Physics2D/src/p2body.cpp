@@ -64,13 +64,12 @@ p2Collider * p2Body::CreateCollider(p2ColliderDef * colliderDef)
 void p2Body::ApplyForceToCenter(const p2Vec2& force)
 {
 	linearVelocity += force;
-	std::cout << "force : " + std::to_string(force.x) + ", " + std::to_string(force.y) << std::endl;
+	
 }
 
 void p2Body::Move(float dt)
 {
 	position = (linearVelocity * dt) + position;
-	std::cout << "linearvelocity : " + std::to_string(linearVelocity.x) + ", " + std::to_string(linearVelocity.y) << std::endl;
 }
 
 void p2Body::SetPosition(const p2Vec2 position)

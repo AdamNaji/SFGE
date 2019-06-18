@@ -1,4 +1,5 @@
 #include "..\include\p2quadtree.h"
+#include "../../Remotery/Remotery.h"
 
 p2QuadTree::p2QuadTree(int nodeLevel, p2AABB bounds)
 {
@@ -13,6 +14,10 @@ p2QuadTree::~p2QuadTree()
 
 void p2QuadTree::Clear()
 {
+	for (auto child : m_Children)
+	{
+		child->Clear();
+	}
 	m_Objects.clear();
 	m_Children.clear();
 }
@@ -26,11 +31,11 @@ void p2QuadTree::Split()
 	p2Vec2 currentPosition = m_Bounds.bottomLeft;
 
 	// Define the size of the child sides depending on the amount of child tree number
-	const auto childSize = (m_Bounds.topRight - currentPosition) / sqrt(MAX_CHILD_TREE_NMB);
+	const auto childSize = (m_Bounds.topRight - currentPosition) / 2;
 
-	for (auto x = 0u; x < sqrt(MAX_CHILD_TREE_NMB); x++)
+	for (auto x = 0u; x < 2; x++)
 	{
-		for (auto y = 0u; y < sqrt(MAX_CHILD_TREE_NMB); y++)
+		for (auto y = 0u; y < 2; y++)
 		{
 			p2AABB childAABB;
 
@@ -101,12 +106,17 @@ void p2QuadTree::Insert(p2Body* obj)
 	}
 	if (m_Objects.size()>MAX_OBJECTS)
 	{
-		Split();
+		if (m_Children.empty())
+		{
+			Split();
+		}
 	}
 }
 
 std::vector<p2Body*> p2QuadTree::Retrieve(p2Body* rect)
 {
+	rmt_ScopedCPUSample(retreve, 0);
+
 	std::vector<p2Body*> returnValue;
 	for (auto& body : m_Objects)
 	{
@@ -115,8 +125,11 @@ std::vector<p2Body*> p2QuadTree::Retrieve(p2Body* rect)
 			std::vector<p2Body*> childObject = GetChildrenObj();
 			if (!childObject.empty()) {
 				returnValue.insert(returnValue.begin(), childObject.begin(), childObject.end());
+		
 			}
+		
 		}
+		
 	}
 	for (auto& child : m_Children)
 	{

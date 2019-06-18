@@ -27,6 +27,7 @@ SOFTWARE.
 
 #include <p2collider.h>
 #include "p2body.h"
+#include "p2matrix.h"
 
 
 /**
@@ -61,12 +62,15 @@ class p2ContactManager
 {
 public:
 	void Init(p2ContactListener* contact_listener);
-	void checkContact(std::vector<p2Body*> bodies);
-	void checkContact2(p2Body* bodiesA, p2Body* bodiesB);
+	/*void checkContact(std::vector<p2Body*> bodies);
+	void checkContact2(p2Body* bodiesA, p2Body* bodiesB);*/
+	void checkContact3(p2Body* bodies, std::vector<p2Body*> listBody);
 	p2Contact* CheckContactList(p2Collider colliderA, p2Collider colliderB);
 	bool conditionContact(p2Body body, p2Body body2);
+	p2Mat22 CheckMTV(p2Body body, p2Body body2);
 	p2Contact p2contact;
-	bool CheckCircleShape(p2Body bodyA,p2Body bodyB);
+	p2Vec2 CheckCircleShape(p2Body bodyA,p2Body bodyB);
+	p2Vec2 CheckRectShape(p2Body bodyA, p2Body bodyB);
 private:
 	p2ContactListener* m_ContactListener;
 	std::vector<p2Contact> contactList;

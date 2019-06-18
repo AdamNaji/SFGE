@@ -34,6 +34,7 @@ struct p2Mat22
 
 	p2Mat22 operator+(p2Mat22 m1) const;
 	p2Mat22 operator-(p2Mat22 m1) const;
+	bool operator!=(p2Mat22 m1) const;
 	p2Mat22 operator*(p2Mat22 m1) const;
 	p2Vec2 operator*(p2Vec2 v) const;
 	p2Mat22 operator*(float f) const;

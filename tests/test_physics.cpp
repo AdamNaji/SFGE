@@ -126,7 +126,7 @@ TEST(Physics, TestShapeContact)
 	json sceneJson;
 	sceneJson["name"] = "Contacts";
 
-	const int entitiesNmb = 25;
+	const int entitiesNmb = 50;
 	json entities[entitiesNmb];
 
 	json shapes[] =
@@ -135,13 +135,13 @@ TEST(Physics, TestShapeContact)
 			{"name","Rect Shape Component"},
 			{"type",sfge::ComponentType::SHAPE2D},
 			{"shape_type", sfge::ShapeType::RECTANGLE},
-			{"size",{20,20}}
+			{"size",{10,10}}
 		},
 		{
 			{"name","Rect Shape Component"},
 			{"type",sfge::ComponentType::SHAPE2D},
 			{"shape_type", sfge::ShapeType::CIRCLE},
-			{"radius",20}
+			{"radius",10}
 		}
 	};
 	json colliders[] =
@@ -150,14 +150,14 @@ TEST(Physics, TestShapeContact)
 			{"name","Rect Collider"},
 			{"type", sfge::ComponentType::COLLIDER2D},
 			{"collider_type",sfge::ColliderType::BOX},
-			{"size",{20,20}},
+			{"size",{10,10}},
 			{"sensor",true}
 		},
 		{
 			{"name","Circle Collider"},
 			{"type", sfge::ComponentType::COLLIDER2D},
 			{"collider_type",sfge::ColliderType::CIRCLE},
-			{"radius",20},
+			{"radius",10},
 			{"sensor",true}
 		}
 	};

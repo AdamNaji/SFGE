@@ -23,6 +23,7 @@ SOFTWARE.
 */
 #include <p2world.h>
 #include "SFML/Window/Keyboard.hpp"
+#include "../../Remotery/Remotery.h"
 
 
 p2World::p2World(p2Vec2 gravity): m_Gravity(gravity)
@@ -61,26 +62,17 @@ void p2World::Step(float dt)
 		if (body.instanciate) {
 			m_QuadTree->Insert(&body);
 		}
-		//Build AABB
-		//const auto retrieve = m_QuadTree->Retrieve(&body);
-
-		/*for (auto& bodyB : retrieve)
-		{
-			m_ContactManager.checkContact2(&body , bodyB);
-		}*/
 		
-		//m_ContactManager.checkContact(m_QuadTree->Retrieve(&body));
 	}
+
+
 	for (auto &body : m_Bodies)
 	{
 		if (!body.instanciate)continue;
-		m_ContactManager.checkContact(m_QuadTree->Retrieve(&body));
+		
+		m_ContactManager.checkContact3(&body,m_QuadTree->Retrieve(&body));
 	}
-
-
-	// Check for collision
-	//m_ContactManager.checkContact(&m_Bodies);
-	//m_QuadTree->Retrieve();
+;
 }
 
 p2Body * p2World::CreateBody(p2BodyDef* bodyDef)

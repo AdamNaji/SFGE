@@ -48,6 +48,12 @@ p2Mat22 p2Mat22::operator-(p2Mat22 m1) const
 	return {r1, r2};
 }
 
+bool p2Mat22::operator!=(p2Mat22 m1) const
+{
+
+	return (rows[0]!=m1.rows[0]&&rows[1]!=m1.rows[1]);
+}
+
 p2Mat22 p2Mat22::operator*(p2Mat22 m1) const
 {
 	const p2Vec2 r1 = p2Vec2(rows[0].x, rows[0].y);
